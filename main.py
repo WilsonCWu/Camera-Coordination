@@ -1,6 +1,24 @@
 import ball_tracking
 import threading
 import time
+import smbus
+
+# for RPI version 1, use “bus = smbus.SMBus(0)”
+bus = smbus.SMBus(1)
+
+# This is the address we setup in the Arduino Program
+address = 0x04
+
+def writeNumber(value):
+	bus.write_byte(address, value)
+	# bus.write_byte_data(address, 0, value)
+	return -1
+
+while True:
+	writeNumber(6)
+	print ("RPI: Hi Arduino, I sent you ", var)
+	# sleep one second
+	time.sleep(1)
 
 #Create a ball tracker, and start the thread
 cameraThread = ball_tracking.BallTracker()
